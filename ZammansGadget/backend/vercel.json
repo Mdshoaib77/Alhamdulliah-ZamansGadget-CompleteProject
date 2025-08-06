@@ -191,6 +191,29 @@
 // }
 
 
+// {
+//   "version": 2,
+//   "builds": [
+//     {
+//       "src": "backend/server.js",
+//       "use": "@vercel/node",
+//       "config": {
+//         "includeFiles": [
+//           "frontend/dist/**",
+//           "backend/config/**",
+//           "backend/routes/**"
+//         ]
+//       }
+//     }
+//   ],
+//   "routes": [
+//     { "handle": "filesystem" },
+//     { "src": "/(.*)", "dest": "backend/server.js" }
+//   ]
+// }
+
+
+
 {
   "version": 2,
   "builds": [
