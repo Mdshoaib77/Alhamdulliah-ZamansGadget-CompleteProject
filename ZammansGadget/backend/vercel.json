@@ -191,58 +191,6 @@
 // }
 
 
-// {
-//   "version": 2,
-//   "builds": [
-//     {
-//       "src": "backend/server.js",
-//       "use": "@vercel/node",
-//       "config": {
-//         "includeFiles": [
-//           "frontend/dist/**",
-//           "backend/config/**",
-//           "backend/routes/**"
-//         ]
-//       }
-//     }
-//   ],
-//   "routes": [
-//     { "handle": "filesystem" },
-//     { "src": "/(.*)", "dest": "backend/server.js" }
-//   ]
-// }
-
-
-// {
-//   "version": 2,
-//   "builds": [
-//     {
-//       "src": "backend/server.js",
-//       "use": "@vercel/node",
-//       "config": {
-//         "includeFiles": [
-//           "frontend/dist/**",  // Include the built frontend files
-//           "backend/config/**",
-//           "backend/routes/**"
-//         ]
-//       }
-//     }
-//   ],
-//   "routes": [
-//     // Handle API requests through the backend
-//     {
-//       "src": "/api/(.*)",
-//       "dest": "backend/server.js"
-//     },
-//     // Serve React app's static files for all non-API routes
-//     {
-//       "src": "/(.*)",
-//       "dest": "/frontend/dist/index.html"
-//     }
-//   ]
-// }
-
-
 {
   "version": 2,
   "builds": [
@@ -251,7 +199,7 @@
       "use": "@vercel/node",
       "config": {
         "includeFiles": [
-          "frontend/dist/**",  // Include the built frontend files
+          "frontend/dist/**",
           "backend/config/**",
           "backend/routes/**"
         ]
@@ -259,15 +207,7 @@
     }
   ],
   "routes": [
-    // Handle API requests through the backend
-    {
-      "src": "/api/(.*)",
-      "dest": "/backend/server.js"
-    },
-    // Serve React app's static files for all non-API routes
-    {
-      "src": "/(.*)",
-      "dest": "/frontend/dist/$1"  // This serves the static files from frontend/dist directory
-    }
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "backend/server.js" }
   ]
 }
