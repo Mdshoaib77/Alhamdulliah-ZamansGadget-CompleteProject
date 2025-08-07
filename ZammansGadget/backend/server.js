@@ -366,51 +366,83 @@
 
 
 
-import express from 'express';
-import cors from 'cors';
-import 'dotenv/config';
-import path from 'path';
-import { fileURLToPath } from 'url';
+// import express from 'express';
+// import cors from 'cors';
+// import 'dotenv/config';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
 
-import connectDB from './config/mongodb.js';
-import connectCloudinary from './config/cloudinary.js';
-import userRouter from './routes/userRoute.js';
-import productRouter from './routes/productRoute.js';
-import cartRouter from './routes/cartRoute.js';
-import orderRouter from './routes/orderRoute.js';
+// import connectDB from './config/mongodb.js';
+// import connectCloudinary from './config/cloudinary.js';
+// import userRouter from './routes/userRoute.js';
+// import productRouter from './routes/productRoute.js';
+// import cartRouter from './routes/cartRoute.js';
+// import orderRouter from './routes/orderRoute.js';
 
-const app = express();
-const port = process.env.PORT || 4000;
+// const app = express();
+// const port = process.env.PORT || 4000;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
-// Connect to Database & Cloudinary
-connectDB();
-connectCloudinary();
+// // Connect to Database & Cloudinary
+// connectDB();
+// connectCloudinary();
 
-// Middlewares
-app.use(express.json());
-app.use(cors());
+// // Middlewares
+// app.use(express.json());
+// app.use(cors());
 
-// API Routes
-app.use('/api/user', userRouter);
-app.use('/api/product', productRouter);
-app.use('/api/cart', cartRouter);
-app.use('/api/order', orderRouter);
+// // API Routes
+// app.use('/api/user', userRouter);
+// app.use('/api/product', productRouter);
+// app.use('/api/cart', cartRouter);
+// app.use('/api/order', orderRouter);
 
-// Serve static files from frontend/dist/
-// NOTE the '..' to go up from backend folder to root, then into frontend/dist
-app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
+// // Serve static files from frontend/dist/
+// // NOTE the '..' to go up from backend folder to root, then into frontend/dist
+// app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
 
-// Fallback route (SPA fix)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
-});
+// // Fallback route (SPA fix)
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
+// });
 
-// Start server
-app.listen(port, () => {
-  console.log(`Server started on PORT : ${port}`);
-});
+// // Start server
+// app.listen(port, () => {
+//   console.log(`Server started on PORT : ${port}`);
+// });
 
-export default app;
+// export default app;
+
+import express from 'express'
+import cors from 'cors'
+import 'dotenv/config'
+import connectDB from './config/mongodb.js'
+import connectCloudinary from './config/cloudinary.js'
+import userRouter from './routes/userRoute.js'
+import productRouter from './routes/productRoute.js'
+import cartRouter from './routes/cartRoute.js'
+import orderRouter from './routes/orderRoute.js'
+
+// App Config
+const app = express()
+const port = process.env.PORT || 4000
+connectDB()
+connectCloudinary()
+
+// middlewares
+app.use(express.json())
+app.use(cors())
+
+// api endpoints
+app.use('/api/user',userRouter)
+app.use('/api/product',productRouter)
+app.use('/api/cart',cartRouter)
+app.use('/api/order',orderRouter)
+
+app.get('/',(req,res)=>{
+    res.send("API Working")
+})
+
+app.listen(port, ()=> console.log('Server started on PORT : '+ port))
